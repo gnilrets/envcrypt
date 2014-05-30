@@ -21,16 +21,36 @@ describe "Envcrypt" do
     end
   end
 
-  describe "encrypting a password" do
+  describe "encrypting and decrypting a password" do
     let(:password) { "mysecret" }
 
-    it "should encrypt and and decrypt a password from a new key" do
-      crypt = Envcryptor.new()
+    describe "with a generated key" do
+      it "should encrypt and decrypt properly" do
+        crypt = Envcryptor.new()
 
-      encrypted = crypt.encrypt(password)
-      plaintxt = crypt.decrypt(encrypted)
+        encrypted = crypt.encrypt(password)
+        plaintxt = crypt.decrypt(encrypted)
 
-      expect(plaintxt).to eq password
+        expect(plaintxt).to eq password
+      end
+    end
+
+    describe "with a supplied environment variable" do
+      before do
+        ENV['ENVCRYPT_KEY'] = "UnY9w3T5Qk3Q5JshOp/2HA==$8swxKYQxgyXaCyvMb+wP2HwqalpiSc3K4MpCvOpD2QY=$RK2cUDUHNBmI7miJcd6W4g=="
+        @crypt = Envcryptor.new()
+      end
+
+      it "should have set the correct key" do
+        expect(@crypt.key).to eq ENV['ENVCRYPT_KEY']
+      end
+
+      it "should still encrypt and decrypt properly" do
+        encrypted = @crypt.encrypt(password)
+        plaintxt = @crypt.decrypt(encrypted)
+
+        expect(plaintxt).to eq password
+      end
     end
   end
 end

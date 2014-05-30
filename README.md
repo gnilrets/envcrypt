@@ -9,6 +9,7 @@ Envcrypt provides an easy way to securely encrypt and decrypt secrets
 ## Use
 
 Encrypt a secret
+
 ````ruby
 $ envcrypt -p mypassword
 
@@ -17,21 +18,20 @@ key: xxx
 ````
 
 Set the key as an environment variable (bash example)
+
 ````bash
 export ENVCRYPT_KEY=xxx
 ````
 
 Decrypt the password in Ruby code
+
 ````ruby
 require 'envcrypt'
 
 encrypted_pwd = "xxx"
-decrypted_pwd = Envcrypt::decrypt(encrypted_pwd, key: ENV['ENVCRYPT_KEY'])
+crypt = Envcryptor.new(key: ENV['ENVCRYPT_KEY']) #key is optional (default: ENV['ENVCRYPT_KEY'])
+decrypted_pwd = crypt.decrypt(encrypted_pwd)
 ````
-
-The second argument to decrypt is **optional**.  The default `key` is
-`ENV['ENVCRYPT_KEY']`, but you have to option to set it explicitly if you want to
-get it from somewhere else.
 
 ##### Optional
 

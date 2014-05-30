@@ -4,8 +4,8 @@ module Envcrypt
 
     attr_accessor :key
 
-    def initialize(key=nil)
-      @key = key == nil ? generate_key : parse_key
+    def initialize(key: ENV['ENVCRYPT_KEY'])
+      @key = key == nil ? generate_key : parse_key(key)
       @de_cipher = nil
       @en_cipher = nil
     end
