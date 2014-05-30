@@ -5,28 +5,32 @@ require 'bundler/setup'
 
 require 'envcrypt'
 
-#include Envcrypt
+include Envcrypt
 
 
-describe Envcrypt do
+describe "Envcrypt" do
   describe "generating a key" do
-    let(:key) { Envcrypt.generate_key }
+    let(:encryptor) { Envcryptor.new() }
 
     it "should have a length of 94" do
-      expect(key.length).to eq 94
+      expect(encryptor.key.length).to eq 94
     end
 
     it "should parse into 3 components delimited by $" do
-      expect(key.split("$").length).to eq 3
+      expect(encryptor.key.split("$").length).to eq 3
     end
   end
 
+  describe "encrypting a password" do
+    let(:password) { "mysecret" }
 
-  it "should encrypt a password" do
-    password = "mysecret"
-    key = Envcrypt.generate_key
-    encrypted = Envcrypt.encrypt(password)
-    decrypted = Envcrypt.decrypt(encrypted)
-    expect(decrypted).to eq password
+    it "should encrypt and and decrypt a password from a new key" do
+      crypt = Envcryptor.new()
+
+      encrypted = crypt.encrypt(password)
+      plaintxt = crypt.decrypt(encrypted)
+
+      expect(plaintxt).to eq password
+    end
   end
 end
