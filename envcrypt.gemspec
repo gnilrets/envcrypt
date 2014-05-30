@@ -5,7 +5,7 @@ $:.push File.expand_path("../lib", __FILE__)
 
 Gem::Specification.new do |s|
   s.name        = "envcrypt"
-  s.version     = "0.0.0" #Birst_Command::VERSION
+  s.version     = Envcrypt::VERSION
   s.authors     = ["Sterling Paramore"]
   s.email       = ["gnilrets@gmail.com"]
   s.homepage    = "https://github.com/gnilrets"
