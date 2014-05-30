@@ -10,14 +10,14 @@ include Envcrypt
 
 describe "Envcrypt" do
   describe "generating a key" do
-    let(:encryptor) { Envcryptor.new() }
+    let(:encrypter) { Envcrypter.new() }
 
     it "should have a length of 94" do
-      expect(encryptor.key.length).to eq 94
+      expect(encrypter.key.length).to eq 94
     end
 
     it "should parse into 3 components delimited by $" do
-      expect(encryptor.key.split("$").length).to eq 3
+      expect(encrypter.key.split("$").length).to eq 3
     end
   end
 
@@ -26,7 +26,7 @@ describe "Envcrypt" do
 
     describe "with a generated key" do
       it "should encrypt and decrypt properly" do
-        crypt = Envcryptor.new()
+        crypt = Envcrypter.new()
 
         encrypted = crypt.encrypt(password)
         plaintxt = crypt.decrypt(encrypted)
@@ -38,7 +38,7 @@ describe "Envcrypt" do
     describe "with a supplied environment variable" do
       before do
         ENV['ENVCRYPT_KEY'] = "UnY9w3T5Qk3Q5JshOp/2HA==$8swxKYQxgyXaCyvMb+wP2HwqalpiSc3K4MpCvOpD2QY=$RK2cUDUHNBmI7miJcd6W4g=="
-        @crypt = Envcryptor.new()
+        @crypt = Envcrypter.new()
       end
 
       it "should have set the correct key" do

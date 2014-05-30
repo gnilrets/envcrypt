@@ -1,6 +1,7 @@
+# Public: Envcrypt module contains all of the methods/classes to
+# perform encryption and decription of password
 module Envcrypt
-
-  class Envcryptor
+  class Envcrypter
 
     attr_accessor :key
 
@@ -48,6 +49,25 @@ module Envcrypt
       end
 
       def create_cipher(mode)
+        create_cipher_simple(mode)
+      end
+
+      def create_cipher_simple(mode)
+        cipher = OpenSSL::Cipher.new 'AES-128-CBC'
+        cipher.send(mode)
+
+        cipher.iv = @iv
+        cipher.key = @pwd
+        cipher
+      end
+
+
+      # Future: Create a cipher using the more secure pbkdf2_mac method
+      #
+      # This one is more secure but doesn't work on Heroku
+      # Would like to optionally detect OpenSSL version 
+      # and use this if possible 
+      def create_cipher_pbkdf2(mode)
         cipher = OpenSSL::Cipher.new 'AES-128-CBC'
         cipher.send(mode)
         cipher.iv = @iv
