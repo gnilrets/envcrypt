@@ -1,7 +1,7 @@
 Envcrypt
 =========
 
-Encryptor provides an easy way to securely encrypt and decrypt secrets
+Envcrypt provides an easy way to securely encrypt and decrypt secrets
 (passwords) that need to be stored for use in automated processes.
 
 **Status:** Just have a README!  Working on the rest.
