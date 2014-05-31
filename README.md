@@ -29,7 +29,7 @@ Decrypt the password in Ruby code
 require 'envcrypt'
 
 encrypted_pwd = "xxx"
-crypt = Envcryptor.new(key: ENV['ENVCRYPT_KEY']) #key is optional (default: ENV['ENVCRYPT_KEY'])
+crypt = Envcrypter.new(key: ENV['ENVCRYPT_KEY']) #key is optional (default: ENV['ENVCRYPT_KEY'])
 decrypted_pwd = crypt.decrypt(encrypted_pwd)
 ````
 
