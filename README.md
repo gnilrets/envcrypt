@@ -4,13 +4,16 @@ Envcrypt
 Envcrypt provides an easy way to securely encrypt and decrypt secrets
 (passwords) that need to be stored for use in automated processes.
 
-**Status:** Just have a README!  Working on the rest.
+## Install
+````bash
+gem install envcrypt
+````
 
 ## Use
 
 Encrypt a secret via
 
-````ruby
+````
 $ envcrypt -s Orange
 Encrypted Secret: zTbH59gpFIIuXGYRuK9pHQ==
 ENVCRYPT_KEY='eWa7QqyF6eE/bEthGO4BgA==$9OZzJ6xIgEcovfEOHIhVb9Gaw5/FeSgDmTErws1+API=$ccRiLqJjyL6MypWHOGfpcQ=='
@@ -19,12 +22,12 @@ WARNING: It is critical that the key and encryption password be stored separatel
 
 Set the key as an environment variable (bash example)
 
-````bash
+````
 $ export ENVCRYPT_KEY='eWa7QqyF6eE/bEthGO4BgA==$9OZzJ6xIgEcovfEOHIhVb9Gaw5/FeSgDmTErws1+API=$ccRiLqJjyL6MypWHOGfpcQ=='
 ````
 
 Go ahead and test decryption from the command line
-````ruby
+````
 $ envcrypt -d 'zTbH59gpFIIuXGYRuK9pHQ=='
 Decrypted: Orange
 ````
@@ -46,7 +49,7 @@ By default a new encryption key is created for each use command line
 `envcrypt` tool.  Secrets can also be encrypted using existing keys if
 you want to use one key to encrypt multiple secrets.
 
-````ruby
+````
 $ envcrypt -p Orange -k $ENVCRYPT_KEY
 ````
 
