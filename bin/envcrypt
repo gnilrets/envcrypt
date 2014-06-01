@@ -1,0 +1,60 @@
+#!/usr/bin/env ruby
+
+require "envcrypt"
+require "optparse"
+
+module EnvcryptCL
+  extend self
+
+  def run
+    set_options
+
+    if @options[:pwd]
+      ENV['ENVCRYPT_KEY'] = @options[:key]
+      crypt = Envcrypt::Envcrypter.new
+      encrypted = crypt.encrypt(@options[:pwd])
+
+      puts "Encrypted Secret: #{encrypted}"
+      puts "ENVCRYPT_KEY=\'#{crypt.key}\'"
+      puts "WARNING: It is critical that the key and encryption password be stored separately!"
+    end
+
+    if @options[:encrypted_pwd]
+      crypt = Envcrypt::Envcrypter.new
+      decrypted = crypt.decrypt(@options[:encrypted_pwd])
+
+      puts "Decrypted: #{decrypted}"
+    end
+  end
+
+
+  def set_options
+    @options = {}
+
+    OptionParser.new do |opts|
+      opts.banner = "Usage: envcrypt -s <SECRET>"
+
+      opts.on("-h","--help", "Show this message") do
+        puts opts
+        exit
+      end
+
+      @options[:pwd] = nil
+      opts.on("-s","--secret <SECRET>","Generates an encrypted version of SECRET") do |opt|
+        @options[:pwd] = opt
+      end
+
+      @options[:encrypted_pwd] = nil
+      opts.on("-d","--decrypt <ENCRYPTED SECRET>","Decrypts the encrypted secret using the ENVCRYPT_KEY environment variable") do |opt|
+        @options[:encrypted_pwd] = opt
+      end
+
+      @options[:key] = nil
+      opts.on("-k","--key <KEY>","Uses the specified key to encrypt; e.g., -k $ENVCRYPT_KEY") do |opt|
+        @options[:key] = opt
+      end
+    end.parse!
+  end
+end
+
+EnvcryptCL.run
