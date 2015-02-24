@@ -17,7 +17,7 @@ module Envcrypt
     #
     # key - A string representing the key to be used for encryption
     #       and decryption (default: ENV['ENVCRYPT_KEY'])
-    def initialize(key: ENV['ENVCRYPT_KEY'])
+    def initialize(key = ENV['ENVCRYPT_KEY'])
       @key = key == nil ? generate_key : key
       @de_cipher = nil
       @en_cipher = nil
