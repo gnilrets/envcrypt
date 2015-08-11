@@ -14,7 +14,7 @@ Gem::Specification.new do |s|
   s.description = "Simple secure encryption/decryption of secret data (passwords)"
   s.rubyforge_project = "envcrypt"
 
-  s.required_ruby_version = '~> 1.9.3'
+  s.required_ruby_version = '>= 1.9.3'
 
   s.files         = `git ls-files`.split("\n")
   s.test_files    = `git ls-files -- {test,spec,features}/*`.split("\n")
